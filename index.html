@@ -271,6 +271,15 @@
             visibility: hidden;
         }
 
+        /* Cải tiến chính: Căn giữa nút trên mobile */
+        .hero-buttons {
+            display: flex;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            flex-wrap: wrap; /* Cho phép xuống dòng nếu cần */
+            gap: 1rem; /* Khoảng cách giữa các nút */
+        }
+
         /* Responsive styles */
         @media (max-width: 1024px) {
             .container {
@@ -283,12 +292,13 @@
             }
             
             .hero-buttons {
-                flex-direction: column;
+                flex-direction: row; /* Giữ nguyên hướng ngang trên tablet */
                 gap: 1rem;
             }
             
             .hero-buttons a {
-                width: 100%;
+                flex: 1; /* Cho phép các nút co dãn đều */
+                min-width: 200px; /* Đảm bảo nút không quá nhỏ */
                 text-align: center;
             }
             
@@ -305,6 +315,16 @@
             .container {
                 padding-left: 1rem;
                 padding-right: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column; /* Chuyển sang dọc trên mobile */
+                width: 100%; /* Chiếm toàn bộ chiều rộng */
+            }
+            
+            .hero-buttons a {
+                width: 100%; /* Chiếm toàn bộ chiều rộng */
+                max-width: 300px; /* Giới hạn chiều rộng tối đa */
             }
 
             .mobile-screen {
@@ -373,6 +393,12 @@
                 font-size: 1.5rem !important;
             }
 
+            .hero-buttons a {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                max-width: 100%; /* Cho phép nút mở rộng trên mobile nhỏ */
+            }
+
             .skill-icons-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -391,11 +417,6 @@
                 height: 60px;
                 bottom: -15px;
                 right: -15px;
-            }
-            
-            .hero-buttons a {
-                padding: 0.75rem 1.5rem;
-                font-size: 0.9rem;
             }
             
             .partners-track {
@@ -501,7 +522,7 @@
                         Skilled in designing and implementing clean architectures, optimizing app performance, and
                         ensuring seamless user experiences.
                     </p>
-                    <div class="flex space-x-4 hero-buttons">
+                    <div class="hero-buttons">
                         <a href="#projects"
                             class="px-8 py-3 bg-indigo-600 text-white rounded-full font-medium hover:bg-indigo-700 transition shadow-lg hover:shadow-xl">
                             View My Work
@@ -788,9 +809,9 @@
         </div>
     </section>
 
-        <div class="elementor-element elementor-element-6ca712e e-con-full e-flex e-con e-parent">
+        <!-- <div class="elementor-element elementor-element-6ca712e e-con-full e-flex e-con e-parent">
         <img src="assets/banner.png" alt="Banner" class="w-full h-[500px] object-cover" />
-    </div>
+    </div> -->
 
     <!-- Projects Section -->
     <section id="projects" class="py-20 bg-white">
