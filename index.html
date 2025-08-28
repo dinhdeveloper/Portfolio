@@ -158,6 +158,136 @@
             border-bottom-right-radius: 10px;
             z-index: 10;
         }
+
+        /* Mobile Navigation */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            z-index: 100;
+            padding: 80px 30px 30px;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-buttons a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .mobile-screen {
+                width: 240px;
+                margin: 0 auto 2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .contact-info a {
+                width: 100%;
+                max-width: none;
+            }
+
+            .floating-circles {
+                display: none;
+            }
+
+            .skill-icons-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .skill-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .project-card {
+                margin-bottom: 2rem;
+            }
+
+            .threejs-bg {
+                display: none; /* Tắt animation nặng trên mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem !important;
+            }
+
+            h2 {
+                font-size: 2rem !important;
+            }
+
+            h3 {
+                font-size: 1.5rem !important;
+            }
+
+            .skill-icons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mobile-screen {
+                width: 200px;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .profile-decoration {
+                width: 60px;
+                height: 60px;
+                bottom: -15px;
+                right: -15px;
+            }
+        }
     </style>
 </head>
 
@@ -165,7 +295,21 @@
     <div class="bg-mobile"></div>
 
     <!-- 3D Animation Background -->
-    <div id="threejs-bg" class="fixed top-0 left-0 w-full h-full z-0 opacity-20"></div>
+    <div id="threejs-bg" class="threejs-bg fixed top-0 left-0 w-full h-full z-0 opacity-20"></div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="flex flex-col space-y-6">
+            <a href="#home" class="text-gray-700 hover:text-indigo-600 transition text-lg font-medium py-2">Home</a>
+            <a href="#about" class="text-gray-700 hover:text-indigo-600 transition text-lg font-medium py-2">About</a>
+            <a href="#skills" class="text-gray-700 hover:text-indigo-600 transition text-lg font-medium py-2">Skills</a>
+            <a href="#projects" class="text-gray-700 hover:text-indigo-600 transition text-lg font-medium py-2">Projects</a>
+            <a href="#contact" class="text-gray-700 hover:text-indigo-600 transition text-lg font-medium py-2">Contact</a>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 backdrop-blur-md bg-white/80 shadow-sm">
@@ -180,7 +324,7 @@
                     <a href="#projects" class="text-gray-700 hover:text-indigo-600 transition">Projects</a>
                     <a href="#contact" class="text-gray-700 hover:text-indigo-600 transition">Contact</a>
                 </div>
-                <button class="md:hidden text-gray-700">
+                <button class="md:hidden text-gray-700" id="menu-toggle">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
@@ -191,7 +335,7 @@
     <section id="home" class="min-h-screen flex items-center pt-20">
         <div class="container mx-auto px-6 py-20">
             <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0">
+                <div class="md:w-1/2 mb-10 md:mb-0 hero-content">
                     <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
                         Hi, I'm <span class="text-indigo-600">Cảnh Dinh</span>
                     </h1>
@@ -203,14 +347,8 @@
                         and Flutter.
                         Skilled in designing and implementing clean architectures, optimizing app performance, and
                         ensuring seamless user experiences.
-                        Passionate about mentoring team members, leading cross-functional collaborations, and delivering
-                        high-impact products on time.
-                        Experienced in integrating third-party services such as payment gateways, digital identity
-                        (eKYC), and deep linking.
-                        Eager to contribute my expertise in mobile development, system integration, and agile practices
-                        to innovative projects that create real business value.
                     </p>
-                    <div class="flex space-x-4">
+                    <div class="flex space-x-4 hero-buttons">
                         <a href="#projects"
                             class="px-8 py-3 bg-indigo-600 text-white rounded-full font-medium hover:bg-indigo-700 transition shadow-lg hover:shadow-xl">
                             View My Work
@@ -264,13 +402,15 @@
                         </div>
                     </div>
 
-                    <div
-                        class="absolute -top-10 -left-10 w-20 h-20 rounded-full pastel-blue opacity-70 floating-delay-1">
-                    </div>
-                    <div
-                        class="absolute -bottom-10 -right-10 w-24 h-24 rounded-full pastel-pink opacity-70 floating-delay-2">
-                    </div>
-                    <div class="absolute top-1/4 -right-16 w-16 h-16 rounded-full pastel-green opacity-70 floating">
+                    <div class="floating-circles">
+                        <div
+                            class="absolute -top-10 -left-10 w-20 h-20 rounded-full pastel-blue opacity-70 floating-delay-1">
+                        </div>
+                        <div
+                            class="absolute -bottom-10 -right-10 w-24 h-24 rounded-full pastel-pink opacity-70 floating-delay-2">
+                        </div>
+                        <div class="absolute top-1/4 -right-16 w-16 h-16 rounded-full pastel-green opacity-70 floating">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -292,11 +432,11 @@
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center">
                     <div class="relative">
-                        <div class="w-64 h-64 rounded-full overflow-hidden border-8 border-white shadow-xl">
+                        <div class="w-64 h-64 rounded-full overflow-hidden border-8 border-white shadow-xl profile-image">
                             <img src="assets/avartar2.JPG" alt="Profile" class="w-full h-full object-cover">
                         </div>
                         <div
-                            class="absolute -bottom-5 -right-5 pastel-yellow w-20 h-20 rounded-full flex items-center justify-center shadow-lg">
+                            class="absolute -bottom-5 -right-5 pastel-yellow w-20 h-20 rounded-full flex items-center justify-center shadow-lg profile-decoration">
                             <i class="fas fa-code text-3xl text-yellow-700 icon-spin"></i>
                         </div>
                     </div>
@@ -435,10 +575,10 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-5 gap-6">
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-5 gap-6 skill-icons-grid">
                 <!-- Flutter -->
                 <div class="flex flex-col items-center">
-                    <div class="w-24 h-24 rounded-full pastel-purple flex items-center justify-center mb-4 shadow-lg">
+                    <div class="w-24 h-24 rounded-full pastel-purple flex items-center justify-center mb-4 shadow-lg skill-icon">
                         <svg class="w-10 h-10" viewBox="0 0 24 24" fill="#02569B" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M14.314 0L1.986 12.328l3.552 3.552L21.418 0H14.314zm.029 11.018l-6.68 6.68 6.695 6.695H21.42l-7.077-7.077 7.077-7.077h-7.106z" />
@@ -449,7 +589,7 @@
 
                 <!-- Figma -->
                 <div class="flex flex-col items-center">
-                    <div class="w-24 h-24 rounded-full pastel-blue flex items-center justify-center mb-4 shadow-lg">
+                    <div class="w-24 h-24 rounded-full pastel-blue flex items-center justify-center mb-4 shadow-lg skill-icon">
                         <svg class="w-10 h-10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path fill="#0ACF83" d="M12 12a6 6 0 100-12 6 6 0 000 12z" />
                             <path fill="#A259FF" d="M12 24a6 6 0 100-12 6 6 0 000 12z" />
@@ -463,7 +603,7 @@
 
                 <!-- Firebase -->
                 <div class="flex flex-col items-center">
-                    <div class="w-24 h-24 rounded-full pastel-yellow flex items-center justify-center mb-4 shadow-lg">
+                    <div class="w-24 h-24 rounded-full pastel-yellow flex items-center justify-center mb-4 shadow-lg skill-icon">
                         <svg class="w-10 h-10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path fill="#FFA000" d="M3 22l9-20 9 20-9-5z" />
                             <path fill="#FFCA28" d="M3 22l9-5 9 5H3z" />
@@ -474,7 +614,7 @@
                 </div>
 
                 <div class="flex flex-col items-center">
-                    <div class="w-24 h-24 rounded-full pastel-green flex items-center justify-center mb-4 shadow-lg">
+                    <div class="w-24 h-24 rounded-full pastel-green flex items-center justify-center mb-4 shadow-lg skill-icon">
                         <i class="fab fa-android text-4xl text-green-600"></i>
                     </div>
                     <h4 class="font-semibold text-gray-800">Android</h4>
@@ -482,7 +622,7 @@
 
                 <!-- Jetpack Compose (thay cho Kotlin) -->
                 <div class="flex flex-col items-center">
-                    <div class="w-24 h-24 rounded-full flex items-center justify-center mb-4 shadow-lg"
+                    <div class="w-24 h-24 rounded-full flex items-center justify-center mb-4 shadow-lg skill-icon"
                         style="background-color: #FFD1A4;">
                         <svg class="w-10 h-10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path fill="#7F52FF" d="M0 24V0h24L0 24zM0 24h12L0 12v12z" />
@@ -505,7 +645,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1 -->
-                <div class="bg-white rounded-xl shadow-xl overflow-hidden card-3d hover:shadow-2xl transition">
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden card-3d hover:shadow-2xl transition project-card">
                     <div class="relative h-48 overflow-hidden">
                         <img src="assets/ishinhan.jpg" alt="iShinhan App"
                             class="w-full h-full object-cover transition duration-500 hover:scale-110">
@@ -530,20 +670,12 @@
                                 class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
                                 View App <i class="fas fa-arrow-right ml-2"></i>
                             </a>
-                            <!-- <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-indigo-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div> -->
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="bg-white rounded-xl shadow-xl overflow-hidden card-3d hover:shadow-2xl transition">
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden card-3d hover:shadow-2xl transition project-card">
                     <div class="relative h-48 overflow-hidden">
                         <img src="assets/checkinpro.jpg" alt="CheckinPro Today App"
                             class="w-full h-full object-cover transition duration-500 hover:scale-110">
@@ -568,20 +700,12 @@
                                 class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
                                 View App <i class="fas fa-arrow-right ml-2"></i>
                             </a>
-                            <!-- <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-indigo-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div> -->
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="bg-white rounded-xl shadow-xl overflow-hidden card-3d hover:shadow-2xl transition">
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden card-3d hover:shadow-2xl transition project-card">
                     <div class="relative h-48 overflow-hidden">
                         <img src="assets/ekyc.png" alt="EKYC App"
                             class="w-full h-full object-cover transition duration-500 hover:scale-110">
@@ -605,14 +729,6 @@
                                 class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
                                 View Project <i class="fas fa-arrow-right ml-2"></i>
                             </a>
-                            <!-- <div class="flex space-x-2">
-                                <a href="#" class="text-gray-500 hover:text-indigo-600">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-blue-600">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -646,7 +762,7 @@
                         amazing.
                     </p>
 
-                    <div class="flex justify-center space-x-12">
+                    <div class="flex flex-col md:flex-row justify-center gap-6 contact-info">
                         <!-- Email -->
                         <a href="mailto:dinhmobiledev@gmail.com" target="_blank"
                            class="flex items-start flex-1 max-w-xs">
@@ -720,6 +836,25 @@
     </footer>
 
     <script>
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+        
+        menuToggle.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+        
+        // Close menu when clicking on menu links
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
         // Three.js background animation
         document.addEventListener('DOMContentLoaded', function () {
             // Set up Three.js scene
@@ -780,13 +915,21 @@
                 renderer.render(scene, camera);
             }
 
-            animate();
+            // Only run animation on desktop
+            if (window.innerWidth > 768) {
+                animate();
+            }
 
             // Handle window resize
             window.addEventListener('resize', function () {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
+                
+                // Restart animation if resized to desktop
+                if (window.innerWidth > 768) {
+                    animate();
+                }
             });
 
             // Smooth scrolling for navigation links
