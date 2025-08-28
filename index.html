@@ -288,6 +288,53 @@
                 right: -15px;
             }
         }
+
+        .partners-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .partners-track {
+            display: flex;
+            width: calc(250px * 10); /* Double the items for seamless loop */
+            animation: scroll 30s linear infinite;
+        }
+        
+        .partner-item {
+            width: 250px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .partner-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 12px; /* Bo góc */
+            opacity: 1; /* Hiển thị đầy đủ */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: transparent;
+            padding: 0px;
+        }
+        
+        /* .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        } */
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-250px * 5)); /* Move by half the width */
+            }
+        }
     </style>
 </head>
 
@@ -635,6 +682,10 @@
         </div>
     </section>
 
+        <div class="elementor-element elementor-element-6ca712e e-con-full e-flex e-con e-parent">
+        <img src="assets/banner.png" alt="Banner" class="w-full h-[500px] object-cover" />
+    </div>
+
     <!-- Projects Section -->
     <section id="projects" class="py-20 bg-white">
         <div class="container mx-auto px-6">
@@ -734,13 +785,100 @@
                 </div>
             </div>
 
-            <div class="text-center mt-16">
+            <!-- <div class="text-center mt-16">
                 <a href="assets/cv.pdf" target="_blank"
                     class="px-8 py-3 bg-indigo-600 text-white rounded-full font-medium hover:bg-indigo-700 transition shadow-lg inline-flex items-center">
                     View CV <i class="fas fa-eye ml-2"></i>
                 </a>
-            </div>
+            </div> -->
 
+        </div>
+    </section>
+
+    <!-- show các đối tác đã làm việc -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Partners I've Worked With</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">I've had the privilege to collaborate with leading companies in Vietnam's technology and finance sectors</p>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="partners-container">
+                <div class="partners-track">
+                    <!-- ZaloPay -->
+                    <div class="partner-item">
+                        <img src="assets/zalopay.png" alt="ZaloPay" class="partner-logo">
+                    </div>
+                    
+                    <!-- MoMo -->
+                    <div class="partner-item">
+                        <img src="assets/momo.png" alt="MoMo" class="partner-logo">
+                    </div>
+                    
+                    <!-- Payoo -->
+                    <div class="partner-item">
+                        <img src="assets/payoo.png" alt="Payoo" class="partner-logo">
+                    </div>
+                    
+                    <!-- VNPT -->
+                    <div class="partner-item">
+                        <img src="assets/vnpt_1.png" alt="VNPT" class="partner-logo">
+                    </div>
+                    
+                    <!-- VNID -->
+                    <div class="partner-item">
+                        <img src="assets/VNID.png" alt="VNID" class="partner-logo">
+                    </div>
+
+                    <!--Shopeepay-->
+                    <div class="partner-item">
+                        <img src="assets/shopeepay.png" alt="Shopeepay" class="partner-logo">
+                    </div>
+
+                    <!--Vnpay-->
+                    <div class="partner-item">
+                        <img src="assets/vnpay.svg" alt="Vnpay" class="partner-logo">
+                    </div>
+                    
+                    <!-- Duplicates for seamless loop -->
+                    <!-- ZaloPay -->
+                    <div class="partner-item">
+                        <img src="assets/zalopay.png" alt="ZaloPay" class="partner-logo">
+                    </div>
+                    
+                    <!-- MoMo -->
+                    <div class="partner-item">
+                        <img src="assets/momo.png" alt="MoMo" class="partner-logo">
+                    </div>
+                    
+                    <!-- Payoo -->
+                    <div class="partner-item">
+                        <img src="assets/payoo.png" alt="Payoo" class="partner-logo">
+                    </div>
+                    
+                    <!-- VNPT -->
+                    <div class="partner-item">
+                        <img src="assets/vnpt_1.png" alt="VNPT" class="partner-logo">
+                    </div>
+                    
+                    <!-- VNID -->
+                    <div class="partner-item">
+                        <img src="assets/VNID.png" alt="VNID" class="partner-logo">
+                    </div>
+
+                    <!--Shopeepay-->
+                    <div class="partner-item">
+                        <img src="assets/shopeepay.png" alt="Shopeepay" class="partner-logo">
+                    </div>
+                    
+                    <!--Vnpay-->
+                    <div class="partner-item">
+                        <img src="assets/vnpay.svg" alt="Vnpay" class="partner-logo">
+                    </div>
+                    
+                </div>
+            </div>
         </div>
     </section>
 
